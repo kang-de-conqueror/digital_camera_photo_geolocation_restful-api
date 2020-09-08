@@ -1,0 +1,95 @@
+swagger: "2.0"
+info:
+  description: "The API document for API web server for the internal project: DCPG at Intek Institute HCM City. Team: Khang TRAN/ Khang VU."
+  version: "1.0.0"
+  title: "Digital Camera Photo Geotag API Doc"
+host: "localhost"
+basePath: "/api/v1"
+tags:
+- name: "Route"
+schemes:
+- "https"
+- "http"
+paths:
+  /route/create:
+    post:
+      tags:
+      - "Route"
+      summary: "Add a new Route"
+      operationId: "addRoute"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "route_data"
+        in: "body"
+        required: true
+        description: "Status values that need to be considered for filter"
+        schema:
+          type: string
+          properties:
+            route_data:
+              type: string
+      responses:
+        200:
+          description: "Route has been succesfully created"
+          schema:
+            type: object
+            properties:
+              route_id:
+                type: integer
+              creation_time:
+                type: string
+  /route/{route_id}:
+    get:
+      tags:
+      - "Route"
+      summary: "Get all data about a Route"
+      description: "Get all data about a Route, using route_id"
+      operationId: "getRoute"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "route_id"
+        in: "path"
+        required: true
+        type: "integer"
+        description: "Route's id"
+      responses:
+        200:
+          description: "Return route's data"
+          schema:
+            type: object
+            properties:
+              route_id:
+                type: integer
+              creation_time:
+                type: string
+              route_data:
+                type: object
+        404:
+          description: "message: Route not found"
+  /route/{route_id}/delete:
+    delete:
+      tags:
+      - "Route"
+      summary: "Deletes a Route"
+      description: "Delete route data from the database"
+      operationId: "deleteRoute"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "route_id"
+        in: "path"
+        required: true
+        type: "integer"
+        description: "Route's id"
+      responses:
+        200:
+          description: "Route has been succesfully deleted"
+        404:
+          description: "message: Route not found"
+externalDocs:
+  description: "Project repo on GitHub"
+  url: "https://github.com/intek-training-jsc/digital-camera-photo-geolocation-khang_tran_khang_vu"
